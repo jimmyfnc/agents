@@ -2,6 +2,33 @@
 
 A multi-stage code review pipeline using two specialized Claude agents (Sonnet + Opus) that work together for thorough, layered code analysis with optional automatic fixes.
 
+## How It Works
+
+```
+┌─────────────────────────────────────────────────────┐
+│  Stage 0: Detect Diff Strategy                      │
+│  Auto-detect: uncommitted / staged / branch / scope │
+├─────────────────────────────────────────────────────┤
+│  Stage 1: Sonnet First-Pass                         │
+│  Fast, broad review across 10 dimensions            │
+├─────────────────────────────────────────────────────┤
+│  Stage 2: Opus Deep-Dive                            │
+│  Subtle bugs, architecture, cross-file issues       │
+├─────────────────────────────────────────────────────┤
+│  Stage 3: Present Combined Findings                 │
+│  Unified report with confidence levels              │
+├─────────────────────────────────────────────────────┤
+│  Stage 3.5: User Confirmation Gate                  │
+│  Fix all / critical only / review-only / cherry-pick│
+├─────────────────────────────────────────────────────┤
+│  Stage 4: Implement Fixes                           │
+│  Auto-fix approved issues by priority               │
+├─────────────────────────────────────────────────────┤
+│  Stage 5: Verify & Summarize                        │
+│  Run tests, present final report                    │
+└─────────────────────────────────────────────────────┘
+```
+
 ## Agents
 
 | Agent | Model | Role |
@@ -9,16 +36,6 @@ A multi-stage code review pipeline using two specialized Claude agents (Sonnet +
 | `code-review-pipeline` | Sonnet | Orchestrator — detects diff strategy, coordinates reviewers, presents findings, gets user approval, implements fixes |
 | `sonnet-reviewer` | Sonnet | Stage 1 — fast, broad first-pass review across 10 dimensions |
 | `opus-reviewer` | Opus | Stage 2 — deep-dive second-pass catching subtle issues the first pass missed |
-
-## Pipeline Flow
-
-1. **Diff Detection** — Automatically determines the right diff command (uncommitted, staged, branch comparison, etc.) and checks changeset size
-2. **Sonnet First-Pass** — Broad sweep across correctness, security, performance, code quality, architecture, edge cases, type safety, test coverage, API contracts, and error messages
-3. **Opus Deep-Dive** — Receives the Sonnet report, independently analyzes the code for subtle logic flaws, concurrency issues, cross-file interactions, and implicit assumptions
-4. **Present Combined Findings** — Unified summary with confidence levels for each finding
-5. **User Confirmation** — Choose: fix all, critical+warnings only, critical only, review-only, or cherry-pick specific items
-6. **Implement Fixes** — Automatically fixes approved issues by priority
-7. **Verify** — Runs tests and presents a final summary
 
 ## Features
 
@@ -33,15 +50,16 @@ A multi-stage code review pipeline using two specialized Claude agents (Sonnet +
 
 ## Installation
 
-Copy the three `.md` files into your global Claude agents directory:
+Copy the three `.md` agent files into your global Claude agents directory:
 
+```bash
+mkdir -p ~/.claude/agents/review
+cp code-review-pipeline.md sonnet-reviewer.md opus-reviewer.md ~/.claude/agents/review/
 ```
-~/.claude/agents/review/
-```
+
+Then restart Claude Code. The agents will be available automatically.
 
 ## Usage
-
-Invoke from Claude Code by using the `code-review-pipeline` agent, or let it be triggered automatically when a thorough code review is needed.
 
 ```
 # Review all changes on current branch
@@ -53,6 +71,11 @@ Run the review pipeline on src/auth/
 # Review only, no fixes
 Just review my code, don't fix anything
 
-# Review a branch
+# Review a branch against main
 Review the feature/payments branch against main
 ```
+
+## Requirements
+
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI or VS Code extension
+- A git repository with changes to review

@@ -57,11 +57,18 @@ A multi-stage code review pipeline using two specialized Claude agents (Sonnet +
 
 ### 1. Install the agents (required)
 
-Copy the three `.md` agent files into your global Claude agents directory:
+Copy the agent files into your global Claude agents directory:
 
 ```bash
 mkdir -p ~/.claude/agents/review
 cp code-review-pipeline.md sonnet-reviewer.md opus-reviewer.md ~/.claude/agents/review/
+```
+
+For the full pipeline including the Stage 4.5 documentation drift check, also install the [doc-drift-detector](../doc-drift-detector/):
+
+```bash
+mkdir -p ~/.claude/agents/docs
+cp ../doc-drift-detector/doc-drift-detector.md ~/.claude/agents/docs/
 ```
 
 ### 2. Install the slash command (optional)

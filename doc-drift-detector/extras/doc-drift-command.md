@@ -1,6 +1,6 @@
 ---
 allowed-tools: Task(doc-drift-detector), Bash, Read, Grep, Glob
-description: Scan for stale, missing, or inconsistent documentation across the project
+description: Scan for stale, missing, inconsistent, or obsolete documentation across the project
 ---
 
 Run the doc-drift-detector agent to scan all project documentation and cross-reference against recent code changes.

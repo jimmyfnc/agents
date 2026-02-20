@@ -9,7 +9,7 @@ Each folder contains a self-contained agent pipeline with its own README, ready 
 | Agent | Description |
 |-------|-------------|
 | [code-review-pipeline](code-review-pipeline/) | Multi-stage code review using Sonnet (breadth) + Opus (depth) with smart diff detection, confidence levels, and optional auto-fix |
-| [doc-drift-detector](doc-drift-detector/) | Detects stale, missing, or inconsistent documentation by auto-discovering all project docs and cross-referencing against code changes |
+| [doc-drift-detector](doc-drift-detector/) | Detects stale, missing, inconsistent, or obsolete documentation by auto-discovering all project docs and cross-referencing against code changes |
 
 ## Installation
 
@@ -23,6 +23,10 @@ Each folder contains a self-contained agent pipeline with its own README, ready 
    # Example: install the code review pipeline
    mkdir -p ~/.claude/agents/review
    cp agents/code-review-pipeline/{code-review-pipeline,sonnet-reviewer,opus-reviewer}.md ~/.claude/agents/review/
+
+   # For the full pipeline (including doc drift check at Stage 4.5), also install:
+   mkdir -p ~/.claude/agents/docs
+   cp agents/doc-drift-detector/doc-drift-detector.md ~/.claude/agents/docs/
    ```
 
 3. Optionally install the slash command and/or skill:
@@ -43,6 +47,7 @@ Each folder contains a self-contained agent pipeline with its own README, ready 
 agents/
 ├── README.md
 ├── CHANGELOG.md
+├── LICENSE
 ├── code-review-pipeline/
 │   ├── README.md
 │   ├── code-review-pipeline.md   # Orchestrator agent

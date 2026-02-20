@@ -18,3 +18,5 @@
 - User confirmation gate before implementing fixes
 - Review-only mode support
 - 3 new review dimensions: test coverage, API contracts, error messages
+- `/review` slash command for quick invocation
+- Auto-trigger skill for natural language invocation ("review my code", "check my changes")

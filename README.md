@@ -20,10 +20,21 @@ Each folder contains a self-contained agent pipeline with its own README, ready 
 2. Copy the agent files you want into your global Claude config:
    ```bash
    # Example: install the code review pipeline
-   cp agents/code-review-pipeline/*.md ~/.claude/agents/review/
+   mkdir -p ~/.claude/agents/review
+   cp agents/code-review-pipeline/{code-review-pipeline,sonnet-reviewer,opus-reviewer}.md ~/.claude/agents/review/
    ```
 
-3. Restart Claude Code. The agents will be available automatically.
+3. Optionally install the slash command and/or skill:
+   ```bash
+   # /review slash command
+   cp agents/code-review-pipeline/extras/review-command.md ~/.claude/commands/review.md
+
+   # Auto-trigger skill
+   mkdir -p ~/.claude/skills/code-review-pipeline
+   cp agents/code-review-pipeline/extras/SKILL.md ~/.claude/skills/code-review-pipeline/SKILL.md
+   ```
+
+4. Restart Claude Code. The agents will be available automatically.
 
 ## Structure
 

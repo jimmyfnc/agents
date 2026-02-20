@@ -10,7 +10,7 @@ tools: Task(sonnet-reviewer, opus-reviewer, doc-drift-detector), Read, Edit, Wri
 Context: The user wants a thorough code review with fixes.
 user: "Review and fix my recent code changes"
 assistant: "I'll run the full review pipeline: Sonnet first-pass, Opus deep-dive, then fix everything found."
-<commentary>Detect diff strategy, spawn sonnet-reviewer first, then opus-reviewer with the first report, present findings, get user approval, then implement fixes.</commentary>
+<commentary>Detect diff strategy, spawn sonnet-reviewer first, then opus-reviewer with the first report, present findings, get user approval, implement fixes, then run doc-drift check.</commentary>
 </example>
 <example>
 Context: The user wants to review a specific branch or set of files.
@@ -22,7 +22,7 @@ assistant: "I'll scope the review pipeline to the auth module files."
 Context: The user wants review-only, no automatic fixes.
 user: "Just review my code, don't fix anything"
 assistant: "I'll run both review stages and present the findings without making any changes."
-<commentary>Run Stage 1 and 2, present findings in Stage 3, then stop. Skip Stages 4 and 5.</commentary>
+<commentary>Run Stage 1 and 2, present findings in Stage 3, then stop. Skip Stages 4, 4.5, and 5.</commentary>
 </example>
 </examples>
 
@@ -99,25 +99,9 @@ Example prompt to send:
 
 **Wait for this to complete before proceeding.**
 
-## Stage 2.5: Documentation Drift Check
-
-While the code reviews run on code quality, also check if documentation is up to date. Spawn the `doc-drift-detector` subagent in parallel with Stage 2 (or after it, if you prefer sequential execution).
-
-**How to invoke:**
-Use the Task tool with `subagent_type: "doc-drift-detector"` and pass the same diff command.
-
-Example prompt to send:
-> Check all project documentation for drift against recent code changes. Use the following diff command to identify what changed:
->
-> `git diff main...HEAD`
->
-> Produce your structured documentation drift report.
-
-**This stage runs automatically as part of the pipeline.** Its findings will be included in the combined report.
-
 ## Stage 3: Present Combined Findings
 
-After all reviews complete (code review + doc drift), present a unified summary:
+After both code reviews complete, present a unified summary:
 
 ```markdown
 ## Review Pipeline Complete
@@ -129,14 +113,9 @@ After all reviews complete (code review + doc drift), present a unified summary:
 [Brief summary of what Opus found additionally: X new critical, Y new warnings, Z insights]
 [Note any first-pass corrections Opus made]
 
-### Stage 2.5 — Documentation Drift
-[Brief summary of what the doc drift check found: X stale, Y missing, Z inconsistent, W incomplete]
-[Or: "All documentation is up to date"]
-
 ### Combined Action Items
 [The prioritized combined list from the Opus report, or merge them yourself if needed]
 [Include confidence levels from the reviewers to help the user decide]
-[Include doc drift items that need attention]
 ```
 
 ## Stage 3.5: User Confirmation Gate
@@ -170,6 +149,33 @@ For each fix:
 
 After all fixes are applied, run any available tests (`npm test`, `pytest`, `cargo test`, etc.) to verify nothing is broken.
 
+## Stage 4.5: Documentation Drift Check
+
+After fixes are applied, spawn the `doc-drift-detector` subagent to check whether the original changes AND the fixes introduced any documentation drift.
+
+**How to invoke:**
+Use the Task tool with `subagent_type: "doc-drift-detector"` and provide a prompt that includes the diff command and a note that fixes were just applied.
+
+Example prompt to send:
+> Scan all documentation in this project and check for drift against recent code changes. Use the following diff command to identify what changed:
+>
+> `git diff main...HEAD`
+>
+> Note: code review fixes were just applied on top of the original changes, so check for drift from both the original changes and the fixes.
+>
+> Produce your structured drift report.
+
+**If drift is found:**
+- Present the drift findings to the user alongside the fix summary in Stage 5
+- Offer to fix documentation issues as a follow-up (do NOT auto-fix docs without confirmation)
+
+**If no drift is found:**
+- Note "No documentation drift detected" in the Stage 5 summary
+
+**Skip this stage if:**
+- The user asked for "review only" (pipeline stopped at Stage 3)
+- The user opted for "review only" at the confirmation gate
+
 ## Stage 5: Final Summary
 
 Present what was done:
@@ -189,6 +195,10 @@ Present what was done:
 ### Skipped Items
 - [Any items intentionally not fixed, with reasoning]
 
+### Documentation Drift
+- [Results from doc-drift-detector: drift found or none detected]
+- [If drift found: list affected docs and offer to fix]
+
 ### Verification
 - [Test results or verification steps taken]
 ```
@@ -205,3 +215,5 @@ Present what was done:
 - If the user scoped the review to specific files or a branch, pass that scope to both reviewers
 - If no changes are detected (empty diff), tell the user and stop
 - If the changeset is very large (50+ files), recommend scoping before proceeding
+- ALWAYS run doc-drift-detector AFTER Stage 4 (fixes) — fixes can introduce their own documentation drift
+- Do NOT auto-fix documentation drift — present findings and let the user decide

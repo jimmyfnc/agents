@@ -24,6 +24,9 @@ A multi-stage code review pipeline using two specialized Claude agents (Sonnet +
 │  Stage 4: Implement Fixes                           │
 │  Auto-fix approved issues by priority               │
 ├─────────────────────────────────────────────────────┤
+│  Stage 4.5: Documentation Drift Check               │
+│  Detect stale/missing docs from changes + fixes     │
+├─────────────────────────────────────────────────────┤
 │  Stage 5: Verify & Summarize                        │
 │  Run tests, present final report                    │
 └─────────────────────────────────────────────────────┘
@@ -36,6 +39,7 @@ A multi-stage code review pipeline using two specialized Claude agents (Sonnet +
 | `code-review-pipeline` | Sonnet | Orchestrator — detects diff strategy, coordinates reviewers, presents findings, gets user approval, implements fixes |
 | `sonnet-reviewer` | Sonnet | Stage 1 — fast, broad first-pass review across 10 dimensions |
 | `opus-reviewer` | Opus | Stage 2 — deep-dive second-pass catching subtle issues the first pass missed |
+| `doc-drift-detector` | Sonnet | Stage 4.5 — checks if changes and fixes introduced documentation drift |
 
 ## Features
 
@@ -47,6 +51,7 @@ A multi-stage code review pipeline using two specialized Claude agents (Sonnet +
 - **10 review dimensions** — Correctness, security, performance, code quality, architecture, edge cases, type safety, test coverage, API contracts, error messages
 - **User confirmation gate** — Review-only mode or choose which fixes to apply before any code is changed
 - **Two-model depth** — Sonnet catches breadth, Opus catches depth
+- **Documentation drift check** — After fixes, detects stale or missing docs caused by the changes
 
 ## Installation
 

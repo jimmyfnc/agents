@@ -1,6 +1,6 @@
 # Doc Drift Detector
 
-Detects stale, missing, or inconsistent documentation by auto-discovering all project docs and cross-referencing them against code changes.
+Detects stale, missing, inconsistent, or obsolete documentation by auto-discovering all project docs and cross-referencing them against code changes.
 
 ## How It Works
 
@@ -16,7 +16,7 @@ Detects stale, missing, or inconsistent documentation by auto-discovering all pr
 │  Understand what each doc covers                    │
 ├─────────────────────────────────────────────────────┤
 │  Step 4: Cross-Reference & Detect Drift             │
-│  Find stale, missing, inconsistent, incomplete docs │
+│  Find stale, missing, inconsistent, obsolete docs   │
 ├─────────────────────────────────────────────────────┤
 │  Step 5: Produce Report                             │
 │  Structured findings with suggested fixes           │
@@ -37,6 +37,7 @@ Detects stale, missing, or inconsistent documentation by auto-discovering all pr
 | **MISSING** | New feature with no docs, new folder with no README, CHANGELOG missing entries |
 | **INCONSISTENT** | Root README says one thing, sub-folder README says another |
 | **INCOMPLETE** | File tree missing new files, feature list missing new features, install steps missing new options |
+| **OBSOLETE** | Doc references deleted files, removed dependencies, decommissioned APIs, or code that no longer exists |
 | **TODO Drift** | Tasks marked pending that are already done in code, or done items with lingering TODOs |
 
 ## Auto-Discovery

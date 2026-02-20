@@ -20,12 +20,13 @@
 - 3 new review dimensions: test coverage, API contracts, error messages
 - `/review` slash command for quick invocation
 - Auto-trigger skill for natural language invocation ("review my code", "check my changes")
+- Doc-drift-detector integrated as Stage 4.5 (runs after fixes to catch drift from both changes and fixes)
 
 ### Doc Drift Detector
 
 **Initial release**
 - Added `doc-drift-detector` agent (Sonnet) — auto-discovers and audits all project documentation
-- Detects stale, missing, inconsistent, and incomplete documentation
+- Detects stale, missing, inconsistent, incomplete, and obsolete documentation
 - Auto-discovers all `.md` files, TODOs, CHANGELOGs, `docs/` folders, and more
 - Cross-references code changes against documentation content
 - Smart diff detection (shared pattern with code review pipeline)
@@ -33,3 +34,4 @@
 - TODO/task list drift detection (pending items already done in code)
 - `/doc-drift` slash command for quick invocation
 - Auto-trigger skill for natural language invocation ("check my docs", "documentation audit")
+- OBSOLETE detection: flags docs referencing deleted files, removed dependencies, or decommissioned code (requires concrete evidence, no false positives from age alone)

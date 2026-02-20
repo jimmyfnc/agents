@@ -9,6 +9,7 @@ Each folder contains a self-contained agent pipeline with its own README, ready 
 | Agent | Description |
 |-------|-------------|
 | [code-review-pipeline](code-review-pipeline/) | Multi-stage code review using Sonnet (breadth) + Opus (depth) with smart diff detection, confidence levels, and optional auto-fix |
+| [doc-drift-detector](doc-drift-detector/) | Detects stale, missing, or inconsistent documentation by auto-discovering all project docs and cross-referencing against code changes |
 
 ## Installation
 
@@ -42,13 +43,19 @@ Each folder contains a self-contained agent pipeline with its own README, ready 
 agents/
 ├── README.md
 ├── CHANGELOG.md
-└── code-review-pipeline/
+├── code-review-pipeline/
+│   ├── README.md
+│   ├── code-review-pipeline.md   # Orchestrator agent
+│   ├── sonnet-reviewer.md        # First-pass reviewer (Sonnet)
+│   ├── opus-reviewer.md          # Deep-dive reviewer (Opus)
+│   └── extras/
+│       ├── review-command.md     # /review slash command
+│       └── SKILL.md              # Auto-trigger skill
+└── doc-drift-detector/
     ├── README.md
-    ├── code-review-pipeline.md   # Orchestrator agent
-    ├── sonnet-reviewer.md        # First-pass reviewer (Sonnet)
-    ├── opus-reviewer.md          # Deep-dive reviewer (Opus)
+    ├── doc-drift-detector.md     # Doc drift agent (Sonnet)
     └── extras/
-        ├── review-command.md     # /review slash command
+        ├── doc-drift-command.md  # /doc-drift slash command
         └── SKILL.md              # Auto-trigger skill
 ```
 

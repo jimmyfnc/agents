@@ -50,6 +50,8 @@ A multi-stage code review pipeline using two specialized Claude agents (Sonnet +
 
 ## Installation
 
+### 1. Install the agents (required)
+
 Copy the three `.md` agent files into your global Claude agents directory:
 
 ```bash
@@ -57,21 +59,47 @@ mkdir -p ~/.claude/agents/review
 cp code-review-pipeline.md sonnet-reviewer.md opus-reviewer.md ~/.claude/agents/review/
 ```
 
+### 2. Install the slash command (optional)
+
+Adds `/review` as a slash command you can type directly in chat:
+
+```bash
+cp extras/review-command.md ~/.claude/commands/review.md
+```
+
+### 3. Install the skill (optional)
+
+Auto-triggers the pipeline when you say things like "review my code" or "check my changes":
+
+```bash
+mkdir -p ~/.claude/skills/code-review-pipeline
+cp extras/SKILL.md ~/.claude/skills/code-review-pipeline/SKILL.md
+```
+
 Then restart Claude Code. The agents will be available automatically.
 
 ## Usage
 
+There are three ways to invoke the pipeline:
+
+### Slash command
 ```
-# Review all changes on current branch
+/review
+/review src/auth/
+/review --review-only
+```
+
+### Natural language (with skill installed)
+```
 Review my code changes
+Check my code for issues
+Run a code review on the auth module
+```
 
-# Review specific scope
-Run the review pipeline on src/auth/
-
-# Review only, no fixes
+### Direct request (always works)
+```
+Run the code review pipeline on src/auth/
 Just review my code, don't fix anything
-
-# Review a branch against main
 Review the feature/payments branch against main
 ```
 

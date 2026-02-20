@@ -35,7 +35,10 @@ agents/
     ├── README.md
     ├── code-review-pipeline.md   # Orchestrator agent
     ├── sonnet-reviewer.md        # First-pass reviewer (Sonnet)
-    └── opus-reviewer.md          # Deep-dive reviewer (Opus)
+    ├── opus-reviewer.md          # Deep-dive reviewer (Opus)
+    └── extras/
+        ├── review-command.md     # /review slash command
+        └── SKILL.md              # Auto-trigger skill
 ```
 
 ## Contributing

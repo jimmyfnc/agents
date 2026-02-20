@@ -2,7 +2,7 @@
 name: code-review-pipeline
 description: "Multi-stage code review pipeline. Runs a Sonnet first-pass review, then an Opus deep-dive review in separate contexts, then fixes all issues found. Use when you want a thorough, two-model code review with automatic fixes."
 model: sonnet
-tools: Task(sonnet-reviewer, opus-reviewer), Read, Edit, Write, Bash, Grep, Glob
+tools: Task(sonnet-reviewer, opus-reviewer, doc-drift-detector), Read, Edit, Write, Bash, Grep, Glob
 ---
 
 <examples>
@@ -99,9 +99,25 @@ Example prompt to send:
 
 **Wait for this to complete before proceeding.**
 
+## Stage 2.5: Documentation Drift Check
+
+While the code reviews run on code quality, also check if documentation is up to date. Spawn the `doc-drift-detector` subagent in parallel with Stage 2 (or after it, if you prefer sequential execution).
+
+**How to invoke:**
+Use the Task tool with `subagent_type: "doc-drift-detector"` and pass the same diff command.
+
+Example prompt to send:
+> Check all project documentation for drift against recent code changes. Use the following diff command to identify what changed:
+>
+> `git diff main...HEAD`
+>
+> Produce your structured documentation drift report.
+
+**This stage runs automatically as part of the pipeline.** Its findings will be included in the combined report.
+
 ## Stage 3: Present Combined Findings
 
-After both reviews complete, present a unified summary:
+After all reviews complete (code review + doc drift), present a unified summary:
 
 ```markdown
 ## Review Pipeline Complete
@@ -113,9 +129,14 @@ After both reviews complete, present a unified summary:
 [Brief summary of what Opus found additionally: X new critical, Y new warnings, Z insights]
 [Note any first-pass corrections Opus made]
 
+### Stage 2.5 — Documentation Drift
+[Brief summary of what the doc drift check found: X stale, Y missing, Z inconsistent, W incomplete]
+[Or: "All documentation is up to date"]
+
 ### Combined Action Items
 [The prioritized combined list from the Opus report, or merge them yourself if needed]
 [Include confidence levels from the reviewers to help the user decide]
+[Include doc drift items that need attention]
 ```
 
 ## Stage 3.5: User Confirmation Gate

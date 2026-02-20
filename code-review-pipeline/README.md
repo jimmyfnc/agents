@@ -103,6 +103,28 @@ Just review my code, don't fix anything
 Review the feature/payments branch against main
 ```
 
+### Scoping What Gets Reviewed
+
+If you don't specify a scope, the pipeline auto-detects what to review (uncommitted changes, then branch diff, then last commit). You can also scope it explicitly:
+
+| What you want to review | How to invoke |
+|---|---|
+| Recent uncommitted changes | `/review` (auto-detected) |
+| A specific folder | `/review src/auth/` |
+| A specific file | `/review src/utils/helpers.ts` |
+| A feature branch vs main | `Review the feature/payments branch against main` |
+| All changes on current branch | `Review all changes on this branch against main` |
+| Only staged changes | `Review my staged changes` |
+| Review only, no fixes | `/review --review-only` |
+
+### What Happens With No Scope
+
+The orchestrator runs through this detection order and uses the first match:
+
+1. **Uncommitted changes** — staged, unstaged, or both
+2. **Feature branch** — diffs current branch against `main`/`master`
+3. **Last commit** — falls back to `git diff HEAD~1`
+
 ## Requirements
 
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI or VS Code extension

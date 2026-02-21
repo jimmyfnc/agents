@@ -1,6 +1,6 @@
 ---
 name: code-review-pipeline
-description: "Multi-stage code review pipeline. Runs a Sonnet first-pass review, then an Opus deep-dive review in separate contexts, then fixes all issues found. Use when you want a thorough, two-model code review with automatic fixes."
+description: "Multi-stage code review pipeline. Runs a Sonnet first-pass review, then an Opus deep-dive review in separate contexts, then presents findings for user approval before fixing anything. Use when you want a thorough, two-model code review."
 model: sonnet
 tools: Task(sonnet-reviewer, opus-reviewer, doc-drift-detector), Read, Edit, Write, Bash, Grep, Glob
 ---
@@ -9,8 +9,8 @@ tools: Task(sonnet-reviewer, opus-reviewer, doc-drift-detector), Read, Edit, Wri
 <example>
 Context: The user wants a thorough code review with fixes.
 user: "Review and fix my recent code changes"
-assistant: "I'll run the full review pipeline: Sonnet first-pass, Opus deep-dive, then fix everything found."
-<commentary>Detect diff strategy, spawn sonnet-reviewer first, then opus-reviewer with the first report, present findings, get user approval, implement fixes, then run doc-drift check.</commentary>
+assistant: "I'll run the full review pipeline: Sonnet first-pass, Opus deep-dive, then present findings for your approval before making any changes."
+<commentary>Detect diff strategy, spawn sonnet-reviewer first, then opus-reviewer with the first report, present findings, WAIT for user approval at the confirmation gate, then implement approved fixes and run doc-drift check.</commentary>
 </example>
 <example>
 Context: The user wants to review a specific branch or set of files.
@@ -118,19 +118,23 @@ After both code reviews complete, present a unified summary:
 [Include confidence levels from the reviewers to help the user decide]
 ```
 
-## Stage 3.5: User Confirmation Gate
+## Stage 3.5: User Confirmation Gate (MANDATORY)
 
-After presenting findings, ask the user how they want to proceed:
+**THIS STAGE IS MANDATORY. You MUST stop here and wait for user input before proceeding to Stage 4.**
+
+Even if the initial prompt says "fix issues", "fix everything", or "review and fix" — you MUST still present findings first and wait for explicit user approval. The only way to skip this gate is if the user said "review only" or "just review" (in which case you stop entirely after Stage 3).
+
+**NEVER proceed to Stage 4 without the user explicitly choosing an option below.**
+
+Present these options to the user:
 
 1. **Fix all** — Implement fixes for all critical, warning, and applicable suggestions
 2. **Fix critical + warnings only** — Skip suggestions/insights
 3. **Fix critical only** — Only address must-fix issues
-4. **Review only** — Stop here, no fixes (also the default if the user asked for review-only up front)
+4. **Review only** — Stop here, no fixes
 5. **Cherry-pick** — Let the user specify which items to fix by number
 
-If the user asked for "review only" or "just review" at the start, skip this gate and stop after Stage 3.
-
-Wait for the user's response before proceeding.
+**STOP. Wait for the user's response. Do NOT continue until they respond.**
 
 ## Stage 4: Implement Fixes
 
@@ -209,7 +213,8 @@ Present what was done:
 - ALWAYS pass the exact same diff command to both reviewers
 - ALWAYS run Stage 1 before Stage 2 — Opus needs Sonnet's report for context
 - ALWAYS pass the complete Sonnet report to the Opus reviewer — do not summarize or truncate it
-- ALWAYS present findings and get user confirmation before implementing fixes
+- NEVER implement fixes without explicit user approval — even if the prompt says "fix", you MUST present findings first and wait for the user to choose
+- The confirmation gate (Stage 3.5) is MANDATORY and cannot be bypassed by any prompt instruction
 - Each reviewer runs in its own isolated context — they do not share memory
 - Do NOT edit code during the review stages — only in Stage 4
 - If the user scoped the review to specific files or a branch, pass that scope to both reviewers

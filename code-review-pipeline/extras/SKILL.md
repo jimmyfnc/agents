@@ -31,16 +31,18 @@ Pass along any scope the user mentioned (specific files, directories, branches).
 
 If the user said "just review" or "review only", include that in the prompt so the pipeline skips the fix stages.
 
+**IMPORTANT:** Never include "fix issues" or "fix everything" in the prompt you send to the pipeline. The pipeline has a mandatory confirmation gate â€” it will always present findings first and ask the user how to proceed before making any changes. Even if the user said "review and fix", let the pipeline's confirmation gate handle the fix decision.
+
 ### Examples
 
 **No scope specified:**
 ```
-Task(code-review-pipeline): "Run the full code review pipeline on this project's recent changes."
+Task(code-review-pipeline): "Run the full code review pipeline on this project's recent changes. Present findings and wait for my approval before making any fixes."
 ```
 
 **Scoped to files/directory:**
 ```
-Task(code-review-pipeline): "Run the code review pipeline scoped to src/auth/"
+Task(code-review-pipeline): "Run the code review pipeline scoped to src/auth/. Present findings and wait for my approval before making any fixes."
 ```
 
 **Review only, no fixes:**
@@ -50,5 +52,5 @@ Task(code-review-pipeline): "Run the code review pipeline in review-only mode â€
 
 **Branch review:**
 ```
-Task(code-review-pipeline): "Run the code review pipeline comparing the feature/payments branch against main."
+Task(code-review-pipeline): "Run the code review pipeline comparing the feature/payments branch against main. Present findings and wait for my approval before making any fixes."
 ```

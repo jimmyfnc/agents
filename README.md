@@ -8,7 +8,7 @@ Each folder contains a self-contained agent pipeline with its own README, ready 
 
 | Agent | Description |
 |-------|-------------|
-| [code-review-pipeline](code-review-pipeline/) | Multi-stage code review using Sonnet (breadth) + Opus (depth) with smart diff detection, confidence levels, and optional auto-fix |
+| [code-review](code-review/) | Multi-stage code review using Sonnet (breadth) + Opus (depth) with smart diff detection, confidence levels, performance analysis with Big O notation, and user-approved fixes |
 | [doc-drift-detector](doc-drift-detector/) | Detects stale, missing, inconsistent, or obsolete documentation by auto-discovering all project docs and cross-referencing against code changes |
 
 ## Installation
@@ -20,9 +20,9 @@ Each folder contains a self-contained agent pipeline with its own README, ready 
 
 2. Copy the agent files you want into your global Claude config:
    ```bash
-   # Example: install the code review pipeline
+   # Example: install the code review
    mkdir -p ~/.claude/agents/review
-   cp agents/code-review-pipeline/{code-review-pipeline,sonnet-reviewer,opus-reviewer}.md ~/.claude/agents/review/
+   cp agents/code-review/{code-review,sonnet-reviewer,opus-reviewer}.md ~/.claude/agents/review/
 
    # For the full pipeline (including doc drift check at Stage 4.5), also install:
    mkdir -p ~/.claude/agents/docs
@@ -31,12 +31,12 @@ Each folder contains a self-contained agent pipeline with its own README, ready 
 
 3. Optionally install the slash command and/or skill:
    ```bash
-   # /review slash command
-   cp agents/code-review-pipeline/extras/review-command.md ~/.claude/commands/review.md
+   # /code-review slash command
+   cp agents/code-review/extras/code-review-command.md ~/.claude/commands/code-review.md
 
    # Auto-trigger skill
-   mkdir -p ~/.claude/skills/code-review-pipeline
-   cp agents/code-review-pipeline/extras/SKILL.md ~/.claude/skills/code-review-pipeline/SKILL.md
+   mkdir -p ~/.claude/skills/code-review
+   cp agents/code-review/extras/SKILL.md ~/.claude/skills/code-review/SKILL.md
    ```
 
 4. Restart Claude Code. The agents will be available automatically.
@@ -48,20 +48,20 @@ agents/
 ├── README.md
 ├── CHANGELOG.md
 ├── LICENSE
-├── code-review-pipeline/
+├── code-review/
 │   ├── README.md
-│   ├── code-review-pipeline.md   # Orchestrator agent
-│   ├── sonnet-reviewer.md        # First-pass reviewer (Sonnet)
-│   ├── opus-reviewer.md          # Deep-dive reviewer (Opus)
+│   ├── code-review.md             # Orchestrator agent
+│   ├── sonnet-reviewer.md         # First-pass reviewer (Sonnet)
+│   ├── opus-reviewer.md           # Deep-dive reviewer (Opus)
 │   └── extras/
-│       ├── review-command.md     # /review slash command
-│       └── SKILL.md              # Auto-trigger skill
+│       ├── code-review-command.md # /code-review slash command
+│       └── SKILL.md               # Auto-trigger skill
 └── doc-drift-detector/
     ├── README.md
-    ├── doc-drift-detector.md     # Doc drift agent (Sonnet)
+    ├── doc-drift-detector.md      # Doc drift agent (Sonnet)
     └── extras/
-        ├── doc-drift-command.md  # /doc-drift slash command
-        └── SKILL.md              # Auto-trigger skill
+        ├── doc-drift-command.md   # /doc-drift slash command
+        └── SKILL.md               # Auto-trigger skill
 ```
 
 ## Contributing

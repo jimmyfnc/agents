@@ -1,6 +1,6 @@
 ---
-name: code-review-pipeline
-description: "Multi-stage code review pipeline. Runs a Sonnet first-pass review, then an Opus deep-dive review in separate contexts, then presents findings for user approval before fixing anything. Use when you want a thorough, two-model code review."
+name: code-review
+description: "Multi-stage code review. Runs a Sonnet first-pass review, then an Opus deep-dive review in separate contexts, then presents findings for user approval before fixing anything. Use when you want a thorough, two-model code review."
 model: sonnet
 tools: Task(sonnet-reviewer, opus-reviewer, doc-drift-detector), Read, Edit, Write, Bash, Grep, Glob
 ---

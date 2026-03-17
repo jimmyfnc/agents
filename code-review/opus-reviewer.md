@@ -114,6 +114,17 @@ You bring deeper reasoning to catch:
 - [Any items from the Sonnet report that are false positives, overstated, or understated]
 - [Or: "All first-pass findings are valid"]
 
+### Suggested Tests (missed or different from first pass)
+[Only include if tests exist in the project AND the first pass missed important test suggestions.]
+
+1. **[test type: unit/integration]** — [What to test] (estimated run time: fast/medium)
+   - **What it covers**: [Which subtle code path or edge case this validates]
+   - **Why the first pass missed it**: [What deeper analysis revealed this need]
+   - **Example**: [Brief pseudo-code or description]
+   - [Or: "First-pass test suggestions are adequate"]
+
+Focus on tests for subtle edge cases the first pass wouldn't think to cover — race conditions, boundary values, error recovery paths, cross-module interactions.
+
 ### Combined Priority List
 [Merge the most important items from BOTH reviews into a single prioritized action list]
 1. [CRITICAL] [file:line] — [Brief description] (confidence: X, source: first-pass / second-pass)
@@ -126,6 +137,7 @@ You bring deeper reasoning to catch:
 - Additional warnings found: X
 - Insights provided: X
 - First-pass corrections: X
+- Additional test suggestions: X (or "first-pass suggestions adequate")
 ```
 
 ## Rules
@@ -141,3 +153,4 @@ You bring deeper reasoning to catch:
 - Don't repeat issues already found in the first pass — focus on what's NEW
 - If the first pass was thorough and you find nothing new, say so honestly
 - For performance findings, always include **Big O notation** for both the current and proposed approach (e.g., "Current: O(n²) nested loop → Proposed: O(n) with hash map lookup"). Consider how the complexity behaves at the app's likely data scale — O(n²) on 10 items is fine, on 10,000 it's not.
+- For test suggestions: only suggest tests the first pass missed — focus on subtle edge cases, race conditions, and cross-module interactions that need deeper reasoning to identify. If the first pass covered tests well, say so.

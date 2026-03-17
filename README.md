@@ -9,6 +9,7 @@ Each folder contains a self-contained agent pipeline with its own README, ready 
 | Agent | Description |
 |-------|-------------|
 | [code-review](code-review/) | Multi-stage code review using Sonnet (breadth) + Opus (depth) with smart diff detection, confidence levels, performance analysis with Big O notation, and user-approved fixes |
+| [perf-review](perf-review/) | Performance-focused code review with Big O notation, impact estimation (high/medium/low), and "worth it?" assessment. Runs standalone or as Stage 2.5 of code-review |
 | [doc-drift-detector](doc-drift-detector/) | Detects stale, missing, inconsistent, or obsolete documentation by auto-discovering all project docs and cross-referencing against code changes |
 
 ## Installation
@@ -24,7 +25,9 @@ Each folder contains a self-contained agent pipeline with its own README, ready 
    mkdir -p ~/.claude/agents/review
    cp agents/code-review/{code-review,sonnet-reviewer,opus-reviewer}.md ~/.claude/agents/review/
 
-   # For the full pipeline (including doc drift check at Stage 4.5), also install:
+   # For the full code review (including perf + doc drift), also install:
+   mkdir -p ~/.claude/agents/perf
+   cp agents/perf-review/perf-review.md ~/.claude/agents/perf/
    mkdir -p ~/.claude/agents/docs
    cp agents/doc-drift-detector/doc-drift-detector.md ~/.claude/agents/docs/
    ```
@@ -55,6 +58,12 @@ agents/
 │   ├── opus-reviewer.md           # Deep-dive reviewer (Opus)
 │   └── extras/
 │       ├── code-review-command.md # /code-review slash command
+│       └── SKILL.md               # Auto-trigger skill
+├── perf-review/
+│   ├── README.md
+│   ├── perf-review.md             # Performance review agent (Sonnet)
+│   └── extras/
+│       ├── perf-review-command.md # /perf-review slash command
 │       └── SKILL.md               # Auto-trigger skill
 └── doc-drift-detector/
     ├── README.md

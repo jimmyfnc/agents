@@ -1,5 +1,23 @@
 # Changelog
 
+## 2026-03-17
+
+### Performance Review (NEW)
+
+**Initial release**
+- Added `perf-review` standalone agent (Sonnet) — dedicated performance analysis
+- Analyzes: algorithmic complexity, N+1 queries, memory/allocation, frontend performance, caching, concurrency
+- Big O notation for all findings (current vs proposed)
+- Estimated impact (High/Medium/Low) with "Worth it?" assessment
+- `/perf-review` slash command and auto-trigger skill
+- Also runs as Stage 2.5 inside the code-review pipeline
+
+### Code Review
+
+- **Suggested Tests** — both reviewers now suggest a minimal set of fast, focused tests for changed code (only if tests exist in the project)
+- **Performance Review integrated** as Stage 2.5 — dedicated perf-review agent runs as part of the full code review
+- **Stage 4.5 doc-drift now mandatory** — same pattern as Stage 3.5 confirmation gate, cannot be skipped
+
 ## 2026-03-03
 
 ### Code Review (renamed from code-review-pipeline)

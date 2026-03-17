@@ -15,6 +15,9 @@ A multi-stage code review using two specialized Claude agents (Sonnet + Opus) th
 │  Stage 2: Opus Deep-Dive                            │
 │  Subtle bugs, architecture, cross-file issues       │
 ├─────────────────────────────────────────────────────┤
+│  Stage 2.5: Performance Review                      │
+│  Big O analysis, impact estimation, "worth it?"     │
+├─────────────────────────────────────────────────────┤
 │  Stage 3: Present Combined Findings                 │
 │  Unified report with confidence levels              │
 ├─────────────────────────────────────────────────────┤
@@ -39,6 +42,7 @@ A multi-stage code review using two specialized Claude agents (Sonnet + Opus) th
 | `code-review` | Sonnet | Orchestrator — detects diff strategy, coordinates reviewers, presents findings, gets user approval, implements fixes |
 | `sonnet-reviewer` | Sonnet | Stage 1 — fast, broad first-pass review across 10 dimensions + performance opportunities |
 | `opus-reviewer` | Opus | Stage 2 — deep-dive second-pass catching subtle issues the first pass missed + deeper performance analysis |
+| `perf-review` | Sonnet | Stage 2.5 — dedicated performance analysis with Big O, impact estimation, and "worth it?" assessment |
 | `doc-drift-detector` | Sonnet | Stage 4.5 — checks if changes and fixes introduced documentation drift |
 
 ## Features

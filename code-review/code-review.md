@@ -2,7 +2,7 @@
 name: code-review
 description: "Multi-stage code review. Runs a Sonnet first-pass review, then an Opus deep-dive review in separate contexts, then presents findings for user approval before fixing anything. Use when you want a thorough, two-model code review."
 model: sonnet
-tools: Task(sonnet-reviewer, opus-reviewer, doc-drift-detector), Read, Edit, Write, Bash, Grep, Glob
+tools: Task(sonnet-reviewer, opus-reviewer, perf-review, doc-drift-detector), Read, Edit, Write, Bash, Grep, Glob
 ---
 
 <examples>
@@ -99,12 +99,28 @@ Example prompt to send:
 
 **Wait for this to complete before proceeding.**
 
+## Stage 2.5: Performance Review
+
+Spawn the `perf-review` subagent to do a dedicated performance analysis of the same changes. This runs as Sonnet and is fast.
+
+**How to invoke:**
+Use the Task tool with `subagent_type: "perf-review"` and provide the same diff command.
+
+Example prompt to send:
+> Run a performance review on the code changes in this project. Use the following diff command to identify changes:
+>
+> `git diff main...HEAD`
+>
+> Read the full files and produce your structured performance report with Big O notation and impact estimates.
+
+**Wait for this to complete before proceeding.**
+
 ## Stage 3: Present Combined Findings
 
-After both code reviews complete, present a unified summary:
+After all reviews complete (code review + performance), present a unified summary:
 
 ```markdown
-## Review Pipeline Complete
+## Review Complete
 
 ### Stage 1 — Sonnet First-Pass
 [Brief summary of what Sonnet found: X critical, Y warnings, Z suggestions]
@@ -113,9 +129,13 @@ After both code reviews complete, present a unified summary:
 [Brief summary of what Opus found additionally: X new critical, Y new warnings, Z insights]
 [Note any first-pass corrections Opus made]
 
+### Stage 2.5 — Performance Review
+[Summary of performance findings: X high impact, Y medium, Z low]
+[Note any "not worth it" items so the user can skip them]
+
 ### Combined Action Items
-[The prioritized combined list from the Opus report, or merge them yourself if needed]
-[Include confidence levels from the reviewers to help the user decide]
+[The prioritized combined list from ALL reviews, merged into a single priority list]
+[Include confidence levels and performance impact estimates to help the user decide]
 ```
 
 ## Stage 3.5: User Confirmation Gate (MANDATORY)
@@ -153,7 +173,11 @@ For each fix:
 
 After all fixes are applied, run any available tests (`npm test`, `pytest`, `cargo test`, etc.) to verify nothing is broken.
 
-## Stage 4.5: Documentation Drift Check
+## Stage 4.5: Documentation Drift Check (MANDATORY)
+
+**THIS STAGE IS MANDATORY. You MUST run the doc-drift-detector after Stage 4 completes.**
+
+Do NOT skip this stage. Do NOT proceed directly to Stage 5 without running doc-drift-detector first. Fixes often introduce documentation drift that needs to be caught.
 
 After fixes are applied, spawn the `doc-drift-detector` subagent to check whether the original changes AND the fixes introduced any documentation drift.
 
@@ -169,6 +193,8 @@ Example prompt to send:
 >
 > Produce your structured drift report.
 
+**Wait for this to complete before proceeding to Stage 5.**
+
 **If drift is found:**
 - Present the drift findings to the user alongside the fix summary in Stage 5
 - Offer to fix documentation issues as a follow-up (do NOT auto-fix docs without confirmation)
@@ -176,7 +202,7 @@ Example prompt to send:
 **If no drift is found:**
 - Note "No documentation drift detected" in the Stage 5 summary
 
-**Skip this stage if:**
+**Only skip this stage if:**
 - The user asked for "review only" (pipeline stopped at Stage 3)
 - The user opted for "review only" at the confirmation gate
 
@@ -220,5 +246,6 @@ Present what was done:
 - If the user scoped the review to specific files or a branch, pass that scope to both reviewers
 - If no changes are detected (empty diff), tell the user and stop
 - If the changeset is very large (50+ files), recommend scoping before proceeding
-- ALWAYS run doc-drift-detector AFTER Stage 4 (fixes) — fixes can introduce their own documentation drift
+- ALWAYS run doc-drift-detector AFTER Stage 4 (fixes) — this is MANDATORY, do NOT skip it or go directly to Stage 5
 - Do NOT auto-fix documentation drift — present findings and let the user decide
+- If the doc-drift-detector finds issues, include them in the Stage 5 summary — do NOT silently omit drift findings

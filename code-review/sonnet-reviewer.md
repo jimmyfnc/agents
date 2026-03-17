@@ -104,7 +104,9 @@ Produce your report in exactly this format:
    - **Worth it?**: [Brief assessment — is the improvement worth the code complexity trade-off? For Low impact items, note that it may not be worth changing depending on the situation]
 
 ### Suggested Tests
-[Only include this section if tests exist in the project. Check for test directories/files first.]
+Check for test directories/files first (`test/`, `tests/`, `__tests__/`, `spec/`, `*.test.*`, `*.spec.*`).
+
+**If tests exist in the project:**
 
 Suggest a **minimal set of fast, focused tests** that would cover the changed code:
 
@@ -112,6 +114,20 @@ Suggest a **minimal set of fast, focused tests** that would cover the changed co
    - **What it covers**: [Which changed code path this validates]
    - **Why this test**: [Why this specific test is worth adding]
    - **Example**: [Brief pseudo-code or description of the test]
+
+**If NO tests exist in the project:**
+
+Recommend a test framework and suggest starter tests:
+
+1. **Recommended framework**: [Best-fit framework for the project's tech stack]
+   - **Why this framework**: [Brief justification — e.g., "Vitest is the standard for Vite/React projects, fast startup, native ESM support"]
+   - **Install**: `[install command, e.g., npm install -D vitest]`
+   - **Config**: [Minimal config needed, if any]
+
+2. **Starter tests** — suggest 2-3 high-value tests to get started:
+   1. **[test type: unit]** — [What to test]
+      - **What it covers**: [Which critical code path this validates]
+      - **Example**: [Brief pseudo-code showing the test]
 
 Guidelines for suggested tests:
 - Prefer unit tests over integration tests — faster feedback loop
@@ -143,4 +159,4 @@ Guidelines for suggested tests:
 - Be thorough but avoid false positives — only report real issues
 - If the changeset is large, note which files you prioritized and which you skimmed
 - For performance findings, always include **Big O notation** for both the current and proposed approach (e.g., "Current: O(n²) nested loop → Proposed: O(n) with hash map lookup"). This helps the user quickly assess whether the optimization is worth the effort at their scale.
-- For test suggestions: check if the project has tests (look for `test/`, `tests/`, `__tests__/`, `spec/`, `*.test.*`, `*.spec.*` files). If tests exist, suggest a minimal set of fast tests. If no test infrastructure exists, skip the Suggested Tests section entirely — don't suggest setting up a test framework.
+- For test suggestions: check if the project has tests (look for `test/`, `tests/`, `__tests__/`, `spec/`, `*.test.*`, `*.spec.*` files). If tests exist, suggest a minimal set of fast tests. If no tests exist, recommend the best-fit framework for the project's tech stack and suggest 2-3 high-value starter tests. Keep framework recommendations practical — pick the one most commonly used with the project's stack.

@@ -115,7 +115,8 @@ You bring deeper reasoning to catch:
 - [Or: "All first-pass findings are valid"]
 
 ### Suggested Tests (missed or different from first pass)
-[Only include if tests exist in the project AND the first pass missed important test suggestions.]
+
+**If tests exist:** Focus on subtle edge cases the first pass wouldn't think to cover — race conditions, boundary values, error recovery paths, cross-module interactions.
 
 1. **[test type: unit/integration]** — [What to test] (estimated run time: fast/medium)
    - **What it covers**: [Which subtle code path or edge case this validates]
@@ -123,7 +124,9 @@ You bring deeper reasoning to catch:
    - **Example**: [Brief pseudo-code or description]
    - [Or: "First-pass test suggestions are adequate"]
 
-Focus on tests for subtle edge cases the first pass wouldn't think to cover — race conditions, boundary values, error recovery paths, cross-module interactions.
+**If NO tests exist:** Validate or refine the first-pass framework recommendation, then suggest additional deeper tests:
+- Confirm or correct the framework choice (e.g., "Sonnet suggested Vitest — agreed, it's the best fit for this Vite project")
+- Add 1-2 tests for subtle edge cases the first pass wouldn't have identified
 
 ### Combined Priority List
 [Merge the most important items from BOTH reviews into a single prioritized action list]
@@ -153,4 +156,4 @@ Focus on tests for subtle edge cases the first pass wouldn't think to cover — 
 - Don't repeat issues already found in the first pass — focus on what's NEW
 - If the first pass was thorough and you find nothing new, say so honestly
 - For performance findings, always include **Big O notation** for both the current and proposed approach (e.g., "Current: O(n²) nested loop → Proposed: O(n) with hash map lookup"). Consider how the complexity behaves at the app's likely data scale — O(n²) on 10 items is fine, on 10,000 it's not.
-- For test suggestions: only suggest tests the first pass missed — focus on subtle edge cases, race conditions, and cross-module interactions that need deeper reasoning to identify. If the first pass covered tests well, say so.
+- For test suggestions: only suggest tests the first pass missed — focus on subtle edge cases, race conditions, and cross-module interactions that need deeper reasoning to identify. If the first pass covered tests well, say so. If no tests exist, validate/refine the first-pass framework recommendation and add deeper test suggestions.

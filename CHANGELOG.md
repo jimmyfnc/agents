@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-04-09
+
+### Security Review (NEW)
+
+**Initial release**
+- Added `security-review` standalone agent (Sonnet) — dedicated security analysis
+- Auto-detects project type: web, mobile (Android/iOS), API, CLI/desktop
+- Applies appropriate security framework: OWASP Web Top 10, OWASP Mobile Top 10, API Security Top 10
+- Scans for: secrets/credentials, injection, auth/authz, data protection, platform-specific issues, dependency vulnerabilities
+- Severity levels: Critical / High / Medium / Low / Info with OWASP category mapping
+- `/security-review` slash command and auto-trigger skill
+- Also runs as Stage 2.75 inside the code-review pipeline
+
+### Code Review
+
+- **Security Review integrated** as Stage 2.75 — dedicated security-review agent runs as part of the full code review
+
 ## 2026-03-17
 
 ### Performance Review (NEW)

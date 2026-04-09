@@ -10,6 +10,7 @@ Each folder contains a self-contained agent pipeline with its own README, ready 
 |-------|-------------|
 | [code-review](code-review/) | Multi-stage code review using Sonnet (breadth) + Opus (depth) with smart diff detection, confidence levels, performance analysis with Big O notation, and user-approved fixes |
 | [perf-review](perf-review/) | Performance-focused code review with Big O notation, impact estimation (high/medium/low), and "worth it?" assessment. Runs standalone or as Stage 2.5 of code-review |
+| [security-review](security-review/) | Security-focused code review that auto-detects project type and applies OWASP frameworks. Scans for vulnerabilities, secrets, auth issues. Runs standalone or as Stage 2.75 of code-review |
 | [doc-drift-detector](doc-drift-detector/) | Detects stale, missing, inconsistent, or obsolete documentation by auto-discovering all project docs and cross-referencing against code changes |
 
 ## Installation
@@ -25,9 +26,11 @@ Each folder contains a self-contained agent pipeline with its own README, ready 
    mkdir -p ~/.claude/agents/review
    cp agents/code-review/{code-review,sonnet-reviewer,opus-reviewer}.md ~/.claude/agents/review/
 
-   # For the full code review (including perf + doc drift), also install:
+   # For the full code review (including perf + security + doc drift), also install:
    mkdir -p ~/.claude/agents/perf
    cp agents/perf-review/perf-review.md ~/.claude/agents/perf/
+   mkdir -p ~/.claude/agents/security
+   cp agents/security-review/security-review.md ~/.claude/agents/security/
    mkdir -p ~/.claude/agents/docs
    cp agents/doc-drift-detector/doc-drift-detector.md ~/.claude/agents/docs/
    ```
@@ -64,6 +67,12 @@ agents/
 │   ├── perf-review.md             # Performance review agent (Sonnet)
 │   └── extras/
 │       ├── perf-review-command.md # /perf-review slash command
+│       └── SKILL.md               # Auto-trigger skill
+├── security-review/
+│   ├── README.md
+│   ├── security-review.md         # Security review agent (Sonnet)
+│   └── extras/
+│       ├── security-review-command.md # /security-review slash command
 │       └── SKILL.md               # Auto-trigger skill
 └── doc-drift-detector/
     ├── README.md

@@ -18,6 +18,9 @@ A multi-stage code review using two specialized Claude agents (Sonnet + Opus) th
 │  Stage 2.5: Performance Review                      │
 │  Big O analysis, impact estimation, "worth it?"     │
 ├─────────────────────────────────────────────────────┤
+│  Stage 2.75: Security Review                        │
+│  OWASP mapping, secrets scan, vulnerability check   │
+├─────────────────────────────────────────────────────┤
 │  Stage 3: Present Combined Findings                 │
 │  Unified report with confidence levels              │
 ├─────────────────────────────────────────────────────┤
@@ -43,6 +46,7 @@ A multi-stage code review using two specialized Claude agents (Sonnet + Opus) th
 | `sonnet-reviewer` | Sonnet | Stage 1 — fast, broad first-pass review across 10 dimensions + performance opportunities |
 | `opus-reviewer` | Opus | Stage 2 — deep-dive second-pass catching subtle issues the first pass missed + deeper performance analysis |
 | `perf-review` | Sonnet | Stage 2.5 — dedicated performance analysis with Big O, impact estimation, and "worth it?" assessment |
+| `security-review` | Sonnet | Stage 2.75 — security analysis with auto-detected OWASP framework, secrets scan, and vulnerability detection |
 | `doc-drift-detector` | Sonnet | Stage 4.5 — checks if changes and fixes introduced documentation drift |
 
 ## Features
@@ -54,6 +58,7 @@ A multi-stage code review using two specialized Claude agents (Sonnet + Opus) th
 - **Dependency auditing** — Flags new, removed, or changed dependencies
 - **10 review dimensions** — Correctness, security, performance, code quality, architecture, edge cases, type safety, test coverage, API contracts, error messages
 - **Performance analysis with Big O** — Dedicated section highlighting optimization opportunities with estimated impact (high/medium/low) and Big O notation for current vs proposed approach
+- **Security analysis with OWASP mapping** — Auto-detects project type and applies the right security framework (Web/Mobile/API Top 10)
 - **User confirmation gate** — Mandatory — review-only mode or choose which fixes to apply before any code is changed
 - **Two-model depth** — Sonnet catches breadth, Opus catches depth
 - **Documentation drift check** — After fixes, detects stale or missing docs caused by the changes

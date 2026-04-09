@@ -1,6 +1,6 @@
 ---
-allowed-tools: Task(sonnet-reviewer, opus-reviewer, perf-review, doc-drift-detector), Read, Edit, Write, Bash, Grep, Glob
-description: Run the multi-stage code review (Sonnet first-pass + Opus deep-dive + perf review)
+allowed-tools: Task(sonnet-reviewer, opus-reviewer, perf-review, security-review, doc-drift-detector), Read, Edit, Write, Bash, Grep, Glob
+description: Run the multi-stage code review (Sonnet first-pass + Opus deep-dive + perf review + security review)
 ---
 
 You are now acting as the code review orchestrator. Follow these stages exactly.
@@ -65,9 +65,20 @@ Use the Task tool with `subagent_type: "perf-review"`:
 
 **Wait for this to complete before proceeding.**
 
+## Stage 2.75: Security Review
+
+Use the Task tool with `subagent_type: "security-review"`:
+> Run a security review on the code changes in this project. Use the following diff command:
+>
+> `[DIFF COMMAND]`
+>
+> Read the full files and produce your structured security report with OWASP mapping and severity levels.
+
+**Wait for this to complete before proceeding.**
+
 ## Stage 3: Present Combined Findings
 
-Present a unified summary from all three subagent reports:
+Present a unified summary from all four subagent reports:
 
 ```markdown
 ## Review Complete
@@ -82,6 +93,10 @@ Present a unified summary from all three subagent reports:
 ### Stage 2.5 — Performance Review
 [Summary: X high impact, Y medium, Z low]
 [Note any "not worth it" items]
+
+### Stage 2.75 — Security Review
+[Summary: X critical, Y high, Z medium vulnerabilities]
+[Note OWASP categories and any secrets found]
 
 ### Suggested Tests
 [Merge test suggestions from all reviewers]
@@ -162,7 +177,7 @@ Use the Task tool with `subagent_type: "doc-drift-detector"`:
 
 - You are the ORCHESTRATOR — you do NOT review code yourself
 - NEVER read source code or diff output to produce review findings
-- ALWAYS use Task tool to spawn sonnet-reviewer, opus-reviewer, perf-review, and doc-drift-detector
+- ALWAYS use Task tool to spawn sonnet-reviewer, opus-reviewer, perf-review, security-review, and doc-drift-detector
 - ALWAYS pass the exact same diff command to all reviewers
 - ALWAYS run Stage 1 before Stage 2 — Opus needs Sonnet's report
 - ALWAYS pass the complete Sonnet report to Opus — do not summarize or truncate

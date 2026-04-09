@@ -62,14 +62,14 @@ cp perf-review.md ~/.claude/agents/perf/
 ### 2. Install the slash command (optional)
 
 ```bash
-cp extras/perf-review-command.md ~/.claude/commands/perf-review.md
+cp extras/perf-review-jimmy-command.md ~/.claude/commands/perf-review-jimmy.md
 ```
 
 ### 3. Install the skill (optional)
 
 ```bash
-mkdir -p ~/.claude/skills/perf-review
-cp extras/SKILL.md ~/.claude/skills/perf-review/SKILL.md
+mkdir -p ~/.claude/skills/perf-review-jimmy
+cp extras/SKILL.md ~/.claude/skills/perf-review-jimmy/SKILL.md
 ```
 
 Then restart Claude Code.
@@ -78,9 +78,9 @@ Then restart Claude Code.
 
 ### Slash command
 ```
-/perf-review
-/perf-review src/api/
-/perf-review --full
+/perf-review-jimmy
+/perf-review-jimmy src/api/
+/perf-review-jimmy --full
 ```
 
 ### Natural language (with skill installed)

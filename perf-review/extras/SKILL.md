@@ -1,5 +1,5 @@
 ---
-name: perf-review
+name: perf-review-jimmy
 description: "Run a performance-focused code review analyzing algorithmic complexity, queries, memory, and optimization opportunities with Big O notation and impact estimation. Use when the user wants to check performance, optimize code, or find bottlenecks."
 triggers:
   - "performance review"

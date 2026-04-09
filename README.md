@@ -37,12 +37,12 @@ Each folder contains a self-contained agent pipeline with its own README, ready 
 
 3. Optionally install the slash command and/or skill:
    ```bash
-   # /code-review slash command
-   cp agents/code-review/extras/code-review-command.md ~/.claude/commands/code-review.md
+   # /code-review-jimmy slash command
+   cp agents/code-review/extras/code-review-jimmy-command.md ~/.claude/commands/code-review-jimmy.md
 
    # Auto-trigger skill
-   mkdir -p ~/.claude/skills/code-review
-   cp agents/code-review/extras/SKILL.md ~/.claude/skills/code-review/SKILL.md
+   mkdir -p ~/.claude/skills/code-review-jimmy
+   cp agents/code-review/extras/SKILL.md ~/.claude/skills/code-review-jimmy/SKILL.md
    ```
 
 4. Restart Claude Code. The agents will be available automatically.
@@ -60,25 +60,25 @@ agents/
 │   ├── sonnet-reviewer.md         # First-pass reviewer (Sonnet)
 │   ├── opus-reviewer.md           # Deep-dive reviewer (Opus)
 │   └── extras/
-│       ├── code-review-command.md # /code-review slash command
+│       ├── code-review-jimmy-command.md # /code-review-jimmy slash command
 │       └── SKILL.md               # Auto-trigger skill
 ├── perf-review/
 │   ├── README.md
 │   ├── perf-review.md             # Performance review agent (Sonnet)
 │   └── extras/
-│       ├── perf-review-command.md # /perf-review slash command
+│       ├── perf-review-jimmy-command.md # /perf-review-jimmy slash command
 │       └── SKILL.md               # Auto-trigger skill
 ├── security-review/
 │   ├── README.md
 │   ├── security-review.md         # Security review agent (Sonnet)
 │   └── extras/
-│       ├── security-review-command.md # /security-review slash command
+│       ├── security-review-jimmy-command.md # /security-review-jimmy slash command
 │       └── SKILL.md               # Auto-trigger skill
 └── doc-drift-detector/
     ├── README.md
     ├── doc-drift-detector.md      # Doc drift agent (Sonnet)
     └── extras/
-        ├── doc-drift-command.md   # /doc-drift slash command
+        ├── doc-drift-jimmy-command.md # /doc-drift-jimmy slash command
         └── SKILL.md               # Auto-trigger skill
 ```
 

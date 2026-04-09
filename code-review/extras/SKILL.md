@@ -1,5 +1,5 @@
 ---
-name: code-review
+name: code-review-jimmy
 description: "Multi-stage code review using Sonnet (first-pass), Opus (deep-dive), perf-review, and security-review. Spawns specialized subagents for each stage, presents findings, and waits for user approval before fixing."
 triggers:
   - "review my code"

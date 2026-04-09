@@ -74,14 +74,14 @@ cp security-review.md ~/.claude/agents/security/
 ### 2. Install the slash command (optional)
 
 ```bash
-cp extras/security-review-command.md ~/.claude/commands/security-review.md
+cp extras/security-review-jimmy-command.md ~/.claude/commands/security-review-jimmy.md
 ```
 
 ### 3. Install the skill (optional)
 
 ```bash
-mkdir -p ~/.claude/skills/security-review
-cp extras/SKILL.md ~/.claude/skills/security-review/SKILL.md
+mkdir -p ~/.claude/skills/security-review-jimmy
+cp extras/SKILL.md ~/.claude/skills/security-review-jimmy/SKILL.md
 ```
 
 Then restart Claude Code.
@@ -90,9 +90,9 @@ Then restart Claude Code.
 
 ### Slash command
 ```
-/security-review
-/security-review src/auth/
-/security-review --full
+/security-review-jimmy
+/security-review-jimmy src/auth/
+/security-review-jimmy --full
 ```
 
 ### Natural language (with skill installed)

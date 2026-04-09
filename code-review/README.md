@@ -83,10 +83,10 @@ cp ../doc-drift-detector/doc-drift-detector.md ~/.claude/agents/docs/
 
 ### 2. Install the slash command (optional)
 
-Adds `/code-review` as a slash command you can type directly in chat:
+Adds `/code-review-jimmy-jimmy` as a slash command you can type directly in chat:
 
 ```bash
-cp extras/code-review-command.md ~/.claude/commands/code-review.md
+cp extras/code-review-jimmy-jimmy-command.md ~/.claude/commands/code-review-jimmy-jimmy.md
 ```
 
 ### 3. Install the skill (optional)
@@ -94,8 +94,8 @@ cp extras/code-review-command.md ~/.claude/commands/code-review.md
 Auto-triggers the review when you say things like "review my code" or "check my changes":
 
 ```bash
-mkdir -p ~/.claude/skills/code-review
-cp extras/SKILL.md ~/.claude/skills/code-review/SKILL.md
+mkdir -p ~/.claude/skills/code-review-jimmy-jimmy
+cp extras/SKILL.md ~/.claude/skills/code-review-jimmy-jimmy/SKILL.md
 ```
 
 Then restart Claude Code. The agents will be available automatically.
@@ -106,9 +106,9 @@ There are three ways to invoke the review:
 
 ### Slash command
 ```
-/code-review
-/code-review src/auth/
-/code-review --review-only
+/code-review-jimmy
+/code-review-jimmy src/auth/
+/code-review-jimmy --review-only
 ```
 
 ### Natural language (with skill installed)
@@ -131,13 +131,13 @@ If you don't specify a scope, the review auto-detects what to review (uncommitte
 
 | What you want to review | How to invoke |
 |---|---|
-| Recent uncommitted changes | `/code-review` (auto-detected) |
-| A specific folder | `/code-review src/auth/` |
-| A specific file | `/code-review src/utils/helpers.ts` |
+| Recent uncommitted changes | `/code-review-jimmy` (auto-detected) |
+| A specific folder | `/code-review-jimmy src/auth/` |
+| A specific file | `/code-review-jimmy src/utils/helpers.ts` |
 | A feature branch vs main | `Review the feature/payments branch against main` |
 | All changes on current branch | `Review all changes on this branch against main` |
 | Only staged changes | `Review my staged changes` |
-| Review only, no fixes | `/code-review --review-only` |
+| Review only, no fixes | `/code-review-jimmy --review-only` |
 
 ### What Happens With No Scope
 

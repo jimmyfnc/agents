@@ -1,5 +1,5 @@
 ---
-name: security-review
+name: security-review-jimmy
 description: "Run a security-focused code review that auto-detects project type and applies OWASP frameworks. Scans for vulnerabilities, secrets, auth issues, and insecure patterns. Use when the user wants a security audit or mentions vulnerabilities."
 triggers:
   - "security review"

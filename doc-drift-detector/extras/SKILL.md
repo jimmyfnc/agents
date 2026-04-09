@@ -1,5 +1,5 @@
 ---
-name: doc-drift-detector
+name: doc-drift-jimmy
 description: "Detect stale, missing, inconsistent, or obsolete documentation by cross-referencing code changes against all project docs. Use when the user wants to check if docs are up to date, audit documentation, or find forgotten doc updates."
 triggers:
   - "check my docs"

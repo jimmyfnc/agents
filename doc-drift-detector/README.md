@@ -62,14 +62,14 @@ cp doc-drift-detector.md ~/.claude/agents/docs/
 ### 2. Install the slash command (optional)
 
 ```bash
-cp extras/doc-drift-command.md ~/.claude/commands/doc-drift.md
+cp extras/doc-drift-jimmy-command.md ~/.claude/commands/doc-drift-jimmy.md
 ```
 
 ### 3. Install the skill (optional)
 
 ```bash
-mkdir -p ~/.claude/skills/doc-drift-detector
-cp extras/SKILL.md ~/.claude/skills/doc-drift-detector/SKILL.md
+mkdir -p ~/.claude/skills/doc-drift-jimmy
+cp extras/SKILL.md ~/.claude/skills/doc-drift-jimmy/SKILL.md
 ```
 
 Then restart Claude Code.
@@ -78,9 +78,9 @@ Then restart Claude Code.
 
 ### Slash command
 ```
-/doc-drift
-/doc-drift --full
-/doc-drift src/auth/
+/doc-drift-jimmy
+/doc-drift-jimmy --full
+/doc-drift-jimmy src/auth/
 ```
 
 ### Natural language (with skill installed)
@@ -102,9 +102,9 @@ Check docs after my recent changes
 
 | What you want | How to invoke |
 |---|---|
-| Check against recent changes | `/doc-drift` (auto-detected) |
-| Full project audit | `/doc-drift --full` |
-| Scoped to a folder | `/doc-drift src/auth/` |
+| Check against recent changes | `/doc-drift-jimmy` (auto-detected) |
+| Full project audit | `/doc-drift-jimmy --full` |
+| Scoped to a folder | `/doc-drift-jimmy src/auth/` |
 | After a commit | `Did I miss any doc updates?` |
 
 ## Requirements

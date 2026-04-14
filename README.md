@@ -11,6 +11,7 @@ Each folder contains a self-contained agent pipeline with its own README, ready 
 | [code-review](code-review/) | Multi-stage code review using Sonnet (breadth) + Opus (depth) with smart diff detection, confidence levels, performance analysis with Big O notation, and user-approved fixes |
 | [perf-review](perf-review/) | Performance-focused code review with Big O notation, impact estimation (high/medium/low), and "worth it?" assessment. Runs standalone or as Stage 2.5 of code-review |
 | [security-review](security-review/) | Security-focused code review that auto-detects project type and applies OWASP frameworks. Scans for vulnerabilities, secrets, auth issues. Runs standalone or as Stage 2.75 of code-review |
+| [first-principles](first-principles/) | First Principles Analyst — strips assumptions, finds foundational truths, rebuilds solutions from scratch. Works for any problem: code, product, business, personal |
 | [doc-drift-detector](doc-drift-detector/) | Detects stale, missing, inconsistent, or obsolete documentation by auto-discovering all project docs and cross-referencing against code changes |
 
 ## Installation
@@ -67,6 +68,12 @@ agents/
 │   ├── perf-review.md             # Performance review agent (Sonnet)
 │   └── extras/
 │       ├── perf-review-jimmy-command.md # /perf-review-jimmy slash command
+│       └── SKILL.md               # Auto-trigger skill
+├── first-principles/
+│   ├── README.md
+│   ├── first-principles.md        # First principles analyst (Sonnet)
+│   └── extras/
+│       ├── first-principles-jimmy-command.md # /first-principles-jimmy slash command
 │       └── SKILL.md               # Auto-trigger skill
 ├── security-review/
 │   ├── README.md

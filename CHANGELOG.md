@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-04-14
+
+### First Principles Analyst (NEW)
+
+**Initial release**
+- Added `first-principles` standalone agent (Sonnet) — Aristotle's method for deconstructing problems
+- 4-phase analysis: surface assumptions, establish first principles, rebuild 3 approaches, identify high-leverage move
+- Assumption classification: convention, imitation, precedent, fear, unexamined default
+- Works for any domain: code architecture, product decisions, business strategy, personal choices
+- `/first-principles-jimmy` slash command and auto-trigger skill
+
 ## 2026-04-09
 
 ### Security Review (NEW)

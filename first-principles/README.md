@@ -61,8 +61,8 @@ Identifies the single action that has disproportionate impact, is invisible to c
 ### 1. Install the agent (required)
 
 ```bash
-mkdir -p ~/.claude/agents/thinking
-cp first-principles.md ~/.claude/agents/thinking/
+mkdir -p ~/.claude/agents/first-principles
+cp first-principles.md ~/.claude/agents/first-principles/
 ```
 
 ### 2. Install the slash command (optional)

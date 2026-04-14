@@ -3,12 +3,11 @@ name: first-principles-jimmy
 description: "Deconstruct any problem from first principles using Aristotle's method. Strips assumptions, finds foundational truths, rebuilds solutions from scratch. Works for code, architecture, product, business, or any decision."
 triggers:
   - "first principles"
-  - "deconstruct this"
-  - "challenge my assumptions"
-  - "rethink from scratch"
   - "analyze from first principles"
+  - "deconstruct this problem"
+  - "deconstruct this decision"
   - "strip away assumptions"
-  - "rebuild from the ground up"
+  - "challenge my assumptions about"
 ---
 
 # First Principles Analyst Skill
@@ -19,14 +18,13 @@ This skill triggers the first-principles agent to deconstruct problems using Ari
 
 Activate this skill when the user:
 - Asks to analyze something from "first principles"
-- Wants assumptions challenged or deconstructed
-- Says "rethink from scratch" or "rebuild from the ground up"
+- Wants assumptions challenged or a problem deconstructed
 - Is stuck between options and wants a fundamentally different perspective
 - Mentions Aristotle's method or foundational analysis
 
 ## How to Execute
 
-Use the Task tool with `subagent_type: "first-principles"` to launch the agent.
+Use `Task(first-principles)` to launch the agent.
 
 Pass along the user's problem description or context.
 

@@ -15,6 +15,8 @@ triggers:
 
 # Doc Drift Detector Skill
 
+> **Naming note:** The skill name is `doc-drift-jimmy` (short, user-facing) while the agent subagent_type is `doc-drift-detector` (internal). The `-detector` suffix is dropped from the user-facing name for brevity.
+
 This skill triggers the doc-drift-detector agent to find documentation that has fallen out of sync with the codebase.
 
 ## When to Use

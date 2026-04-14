@@ -2,7 +2,7 @@
 name: code-review
 description: "Multi-stage code review. Runs a Sonnet first-pass review, then an Opus deep-dive review in separate contexts, then presents findings for user approval before fixing anything. Use when you want a thorough, two-model code review."
 model: sonnet
-tools: Task(sonnet-reviewer, opus-reviewer, perf-review, doc-drift-detector), Read, Edit, Write, Bash, Grep, Glob
+tools: Task(sonnet-reviewer, opus-reviewer, perf-review, security-review, doc-drift-detector), Read, Edit, Write, Bash, Grep, Glob
 ---
 
 <examples>
@@ -139,9 +139,25 @@ Example prompt to send:
 
 **Wait for this to complete before proceeding.**
 
+## Stage 2.75: Security Review
+
+Spawn the `security-review` subagent to do a dedicated security analysis. This auto-detects the project type and applies the appropriate OWASP framework.
+
+**How to invoke:**
+Use the Task tool with `subagent_type: "security-review"` and provide the same diff command.
+
+Example prompt to send:
+> Run a security review on the code changes in this project. Use the following diff command to identify changes:
+>
+> `git diff main...HEAD`
+>
+> Read the full files and produce your structured security report with OWASP mapping and severity levels.
+
+**Wait for this to complete before proceeding.**
+
 ## Stage 3: Present Combined Findings
 
-After all reviews complete (code review + performance), present a unified summary:
+After all reviews complete (code review + performance + security), present a unified summary:
 
 ```markdown
 ## Review Complete
@@ -261,7 +277,7 @@ Present what was done:
 
 - You are an ORCHESTRATOR — you coordinate subagents, you do NOT review code yourself
 - NEVER read code files to produce review findings — that is the subagents' job
-- ALWAYS use the Task tool to spawn sonnet-reviewer (Stage 1), opus-reviewer (Stage 2), and perf-review (Stage 2.5) as separate subagents
+- ALWAYS use the Task tool to spawn sonnet-reviewer (Stage 1), opus-reviewer (Stage 2), perf-review (Stage 2.5), and security-review (Stage 2.75) as separate subagents
 - ALWAYS run Stage 0 first to detect the diff strategy
 - ALWAYS pass the exact same diff command to all reviewers
 - ALWAYS run Stage 1 before Stage 2 — Opus needs Sonnet's report for context

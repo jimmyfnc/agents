@@ -83,10 +83,10 @@ cp ../doc-drift-detector/doc-drift-detector.md ~/.claude/agents/docs/
 
 ### 2. Install the slash command (optional)
 
-Adds `/code-review-jimmy-jimmy` as a slash command you can type directly in chat:
+Adds `/code-review-jimmy` as a slash command you can type directly in chat:
 
 ```bash
-cp extras/code-review-jimmy-jimmy-command.md ~/.claude/commands/code-review-jimmy-jimmy.md
+cp extras/code-review-jimmy-command.md ~/.claude/commands/code-review-jimmy.md
 ```
 
 ### 3. Install the skill (optional)
@@ -94,8 +94,8 @@ cp extras/code-review-jimmy-jimmy-command.md ~/.claude/commands/code-review-jimm
 Auto-triggers the review when you say things like "review my code" or "check my changes":
 
 ```bash
-mkdir -p ~/.claude/skills/code-review-jimmy-jimmy
-cp extras/SKILL.md ~/.claude/skills/code-review-jimmy-jimmy/SKILL.md
+mkdir -p ~/.claude/skills/code-review-jimmy
+cp extras/SKILL.md ~/.claude/skills/code-review-jimmy/SKILL.md
 ```
 
 Then restart Claude Code. The agents will be available automatically.

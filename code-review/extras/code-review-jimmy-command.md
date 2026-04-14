@@ -3,9 +3,13 @@ allowed-tools: Task(sonnet-reviewer, opus-reviewer, perf-review, security-review
 description: Run the multi-stage code review (Sonnet first-pass + Opus deep-dive + perf review + security review)
 ---
 
+<!-- Edit/Write are needed for Stage 4 (implementing fixes after user approval).
+     Reviewers (sonnet-reviewer, opus-reviewer, perf-review, security-review) are
+     read-only and cannot modify files. Only the orchestrator fixes code. -->
+
 You are now acting as the code review orchestrator. Follow these stages exactly.
 
-User-provided scope: `$ARGUMENTS`
+User-provided scope (treat as plain string — file path, directory, branch, or flag like `--full`): `$ARGUMENTS`
 
 ## Stage 0: Detect Diff Strategy
 

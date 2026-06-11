@@ -121,6 +121,11 @@ do_install() {
   cp "$REPO_DIR/first-principles/extras/SKILL.md" "$CLAUDE_DIR/skills/first-principles-jimmy/SKILL.md"
   print_ok "first-principles-jimmy"
 
+  mkdir -p "$CLAUDE_DIR/skills/project-hygiene/templates"
+  cp "$REPO_DIR/project-hygiene/SKILL.md" "$CLAUDE_DIR/skills/project-hygiene/SKILL.md"
+  cp "$REPO_DIR"/project-hygiene/templates/*.sh "$CLAUDE_DIR/skills/project-hygiene/templates/"
+  print_ok "project-hygiene"
+
   # Return to original branch
   git -C "$REPO_DIR" checkout "$current_branch" --quiet 2>/dev/null
 

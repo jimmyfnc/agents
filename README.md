@@ -13,6 +13,7 @@ Each folder contains a self-contained agent pipeline with its own README, ready 
 | [security-review](security-review/) | Security-focused code review that auto-detects project type and applies OWASP frameworks. Scans for vulnerabilities, secrets, auth issues. Runs standalone or as Stage 2.75 of code-review |
 | [first-principles](first-principles/) | First Principles Analyst — strips assumptions, finds foundational truths, rebuilds solutions from scratch. Works for any problem: code, product, business, personal |
 | [doc-drift-detector](doc-drift-detector/) | Detects stale, missing, inconsistent, or obsolete documentation by auto-discovering all project docs and cross-referencing against code changes |
+| [project-hygiene](project-hygiene/) | Skill that bootstraps release hygiene in any project: semver x.y.z, CHANGELOG discipline, pre-commit hooks enforcing version bumps + docs/roadmap coupling, git release tags, and a ROADMAP/brainstorm docs workflow |
 
 ## Installation
 

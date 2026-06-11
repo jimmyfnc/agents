@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-06-11
+
+### Project Hygiene (NEW)
+
+**Initial release**
+- Added `project-hygiene` skill — bootstraps release hygiene in any project
+- SETUP mode: detects version source (Gradle/package.json/pyproject/Cargo/VERSION), creates CHANGELOG + docs/ROADMAP skeleton, installs a configurable pre-commit hook, writes conventions into the project's CLAUDE.md
+- RELEASE mode: bump -> changelog -> commit -> annotated tag `vX.Y.Z` -> push --follow-tags checklist
+- Hook templates (version-bump check + brainstorm<->roadmap coupling) usable standalone without Claude
+- Wired into `install.sh`
+
 ## 2026-04-14
 
 ### First Principles Analyst (NEW)

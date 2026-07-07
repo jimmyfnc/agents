@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-07-06 — v1.2.1
+
+### Fixed
+
+- `perf-review` and `security-review` described their machine-readable findings
+  block via a cross-package link that didn't resolve once the agents are installed
+  into separate directories. The field list is now inlined so each reviewer is
+  self-contained.
+
 ## 2026-07-06 — v1.2.0
 
 ### Code review — modernized engine

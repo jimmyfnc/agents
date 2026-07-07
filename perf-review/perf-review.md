@@ -165,11 +165,13 @@ For every finding, provide:
 
 ## Machine-Readable Findings (required)
 
-After the human-readable report above, emit a machine-readable findings block as
-defined in the code-review [finding-schema.md](../code-review/finding-schema.md)
-— a fenced ```json block listing every opportunity with `"source": "perf"` and
-`"category": "performance"`. When run inside the code-review pipeline the
-orchestrator merges and verifies from this block. Emit `[]` if clean.
+After the human-readable report above, emit a machine-readable findings block: a
+fenced ```json array where each item is
+`{ id, file, line, severity, confidence, category, title, detail, fix, source }`
+(the shared code-review finding schema). Use `"source": "perf"`,
+`"category": "performance"`, and ids like `perf-1`. When run inside the
+code-review pipeline the orchestrator merges and verifies from this block. Emit
+`[]` if clean.
 
 ## Rules
 

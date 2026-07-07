@@ -59,7 +59,9 @@ do_install() {
   cp "$REPO_DIR/code-review/code-review.md" "$CLAUDE_DIR/agents/review/"
   cp "$REPO_DIR/code-review/sonnet-reviewer.md" "$CLAUDE_DIR/agents/review/"
   cp "$REPO_DIR/code-review/opus-reviewer.md" "$CLAUDE_DIR/agents/review/"
-  print_ok "code-review (code-review.md, sonnet-reviewer.md, opus-reviewer.md)"
+  cp "$REPO_DIR/code-review/review-verifier.md" "$CLAUDE_DIR/agents/review/"
+  cp "$REPO_DIR/code-review/finding-schema.md" "$CLAUDE_DIR/agents/review/"
+  print_ok "code-review (orchestrator, sonnet-reviewer, opus-reviewer, review-verifier, finding-schema)"
 
   mkdir -p "$CLAUDE_DIR/agents/perf"
   cp "$REPO_DIR/perf-review/perf-review.md" "$CLAUDE_DIR/agents/perf/"
@@ -76,6 +78,10 @@ do_install() {
   mkdir -p "$CLAUDE_DIR/agents/first-principles"
   cp "$REPO_DIR/first-principles/first-principles.md" "$CLAUDE_DIR/agents/first-principles/"
   print_ok "first-principles"
+
+  mkdir -p "$CLAUDE_DIR/agents/pre-mortem"
+  cp "$REPO_DIR/pre-mortem/pre-mortem.md" "$CLAUDE_DIR/agents/pre-mortem/"
+  print_ok "pre-mortem"
 
   # --- Commands ---
   echo ""
@@ -96,6 +102,18 @@ do_install() {
 
   cp "$REPO_DIR/first-principles/extras/first-principles-jimmy-command.md" "$CLAUDE_DIR/commands/first-principles-jimmy.md"
   print_ok "/first-principles-jimmy"
+
+  cp "$REPO_DIR/pre-mortem/extras/pre-mortem-jimmy-command.md" "$CLAUDE_DIR/commands/pre-mortem-jimmy.md"
+  print_ok "/pre-mortem-jimmy"
+
+  cp "$REPO_DIR/release/extras/release-jimmy-command.md" "$CLAUDE_DIR/commands/release-jimmy.md"
+  print_ok "/release-jimmy"
+
+  cp "$REPO_DIR/commit-pr-author/extras/commit-pr-author-jimmy-command.md" "$CLAUDE_DIR/commands/commit-pr-author-jimmy.md"
+  print_ok "/commit-pr-author-jimmy"
+
+  cp "$REPO_DIR/skill-linter/extras/skill-linter-jimmy-command.md" "$CLAUDE_DIR/commands/skill-linter-jimmy.md"
+  print_ok "/skill-linter-jimmy"
 
   # --- Skills ---
   echo ""
@@ -125,6 +143,22 @@ do_install() {
   cp "$REPO_DIR/project-hygiene/SKILL.md" "$CLAUDE_DIR/skills/project-hygiene/SKILL.md"
   cp "$REPO_DIR"/project-hygiene/templates/*.sh "$CLAUDE_DIR/skills/project-hygiene/templates/"
   print_ok "project-hygiene"
+
+  mkdir -p "$CLAUDE_DIR/skills/pre-mortem-jimmy"
+  cp "$REPO_DIR/pre-mortem/extras/SKILL.md" "$CLAUDE_DIR/skills/pre-mortem-jimmy/SKILL.md"
+  print_ok "pre-mortem-jimmy"
+
+  mkdir -p "$CLAUDE_DIR/skills/release"
+  cp "$REPO_DIR/release/SKILL.md" "$CLAUDE_DIR/skills/release/SKILL.md"
+  print_ok "release"
+
+  mkdir -p "$CLAUDE_DIR/skills/commit-pr-author"
+  cp "$REPO_DIR/commit-pr-author/SKILL.md" "$CLAUDE_DIR/skills/commit-pr-author/SKILL.md"
+  print_ok "commit-pr-author"
+
+  mkdir -p "$CLAUDE_DIR/skills/skill-linter"
+  cp "$REPO_DIR/skill-linter/SKILL.md" "$CLAUDE_DIR/skills/skill-linter/SKILL.md"
+  print_ok "skill-linter"
 
   # Return to original branch
   git -C "$REPO_DIR" checkout "$current_branch" --quiet 2>/dev/null
@@ -181,6 +215,9 @@ do_check() {
     "security-review/security-review.md:agents/security/security-review.md"
     "doc-drift-detector/doc-drift-detector.md:agents/docs/doc-drift-detector.md"
     "first-principles/first-principles.md:agents/first-principles/first-principles.md"
+    "code-review/review-verifier.md:agents/review/review-verifier.md"
+    "code-review/finding-schema.md:agents/review/finding-schema.md"
+    "pre-mortem/pre-mortem.md:agents/pre-mortem/pre-mortem.md"
   )
 
   for entry in "${files_to_check[@]}"; do

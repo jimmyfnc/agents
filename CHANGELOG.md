@@ -1,5 +1,47 @@
 # Changelog
 
+## 2026-07-06 — v1.2.0
+
+### Code review — modernized engine
+
+- **Adversarial verification.** New `review-verifier` subagent independently tries
+  to *refute* every finding before it reaches you; false positives are dropped and
+  overstated severities are corrected. This is the biggest accuracy change.
+- **Parallel fan-out.** The orchestrator now spawns breadth + performance +
+  security reviewers in a single parallel batch (was strictly serial), then adds
+  the Opus deep-dive, so a review is faster.
+- **Structured findings.** All reviewers emit a machine-readable `findings` JSON
+  block (`finding-schema.md`) so the orchestrator merges, dedupes, and verifies
+  deterministically instead of parsing prose.
+
+### Security — tool-backed
+
+- `security-review` now runs real scanners when available — `gitleaks` /
+  `trufflehog` for secrets, `osv-scanner` / `npm audit` / `pip-audit` / `cargo
+  audit` / `govulncheck` for CVEs, `semgrep` for SAST — instead of recalling CVEs
+  from memory.
+
+### Fixed
+
+- **Swapped skill/command frontmatter** across all packages: `SKILL.md` files
+  carried command frontmatter (`allowed-tools`, `$ARGUMENTS`) and `*-command.md`
+  files carried skill frontmatter (`triggers:`, no `allowed-tools`). Each now has
+  the correct frontmatter for where it installs; commands gained `argument-hint`,
+  and code-review's command delegates to its skill.
+
+### Added — four new packages
+
+- **pre-mortem** — assume a plan/release already failed; enumerate why, rank by
+  likelihood × impact, and guard the top risks. Complements first-principles.
+- **release** — run a release against a project-hygiene setup (bump → CHANGELOG →
+  tag → push).
+- **commit-pr-author** — commit message or PR description from the actual diff, in
+  the repo's style.
+- **skill-linter** — lint skills/subagents/commands for frontmatter, description
+  quality, and dead references (catches the swap bug above).
+
+`install.sh` and the README were updated for the new packages and integrity checks.
+
 ## 2026-06-11
 
 ### Project Hygiene (NEW)

@@ -1,46 +1,11 @@
 ---
 name: first-principles-jimmy
-description: "Deconstruct any problem from first principles using Aristotle's method. Strips assumptions, finds foundational truths, rebuilds solutions from scratch. Works for code, architecture, product, business, or any decision."
-triggers:
-  - "first principles"
-  - "analyze from first principles"
-  - "deconstruct this problem"
-  - "deconstruct this decision"
-  - "strip away assumptions"
-  - "challenge my assumptions about"
+description: Deconstruct any problem from first principles (Aristotle's method) — strip assumptions, find foundational truths, and rebuild solutions from scratch. Use for code, architecture, product, business, or personal decisions, or whenever the user wants their assumptions challenged or is stuck between options.
 ---
 
-# First Principles Analyst Skill
+Spawn the `first-principles` subagent (Task tool, `subagent_type: "first-principles"`) and pass along the user's problem, decision, or situation:
 
-This skill triggers the first-principles agent to deconstruct problems using Aristotle's method.
+- With context → "Deconstruct the following from first principles: `<context>`. Run all 4 phases (surface assumptions, establish first principles, rebuild 3 approaches, identify the high-leverage move)."
+- No context → "The user wants a first-principles analysis. Ask them to describe the problem, decision, or situation they want deconstructed."
 
-## When to Use
-
-Activate this skill when the user:
-- Asks to analyze something from "first principles"
-- Wants assumptions challenged or a problem deconstructed
-- Is stuck between options and wants a fundamentally different perspective
-- Mentions Aristotle's method or foundational analysis
-
-## How to Execute
-
-Use `Task(first-principles)` to launch the agent.
-
-Pass along the user's problem description or context.
-
-### Examples
-
-**User provides a problem:**
-```
-Task(first-principles): "Deconstruct the following from first principles: We're debating whether to use microservices or a monolith. We have 5 developers and expect moderate traffic. Run all 4 phases."
-```
-
-**No context provided:**
-```
-Task(first-principles): "The user wants to do a first-principles analysis. Ask them to describe the problem, decision, or situation they want deconstructed."
-```
-
-**Code/architecture decision:**
-```
-Task(first-principles): "Deconstruct from first principles: Should we rewrite our backend in Rust for performance, or optimize the existing Node.js codebase? Current p99 latency is 800ms, target is 200ms. Run all 4 phases."
-```
+Pairs well with the `pre-mortem` skill: first-principles builds the plan, pre-mortem tries to break it.

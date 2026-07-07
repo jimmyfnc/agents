@@ -143,6 +143,15 @@ You bring deeper reasoning to catch:
 - Additional test suggestions: X (or "first-pass suggestions adequate")
 ```
 
+## Machine-Readable Findings (required)
+
+After the human-readable report above, emit a machine-readable findings block as
+defined in [finding-schema.md](./finding-schema.md) — a fenced ```json block
+listing every NEW finding with `"source": "depth"`. For first-pass findings you
+judge false or mis-rated, do not restate them here; report those in the
+"First-Pass Corrections" section (the orchestrator reconciles them). Emit `[]` if
+you found nothing new.
+
 ## Rules
 
 - Always use the diff command provided by the orchestrator when one is given

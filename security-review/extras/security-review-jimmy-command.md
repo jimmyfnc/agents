@@ -1,19 +1,13 @@
 ---
 allowed-tools: Task(security-review), Bash, Read, Grep, Glob
-description: Run a security-focused code review with OWASP mapping and vulnerability detection
+argument-hint: [path | --full]
+description: Run a security-focused code review with OWASP mapping, scanner-backed checks, and vulnerability detection
 ---
 
-Run the security-review agent to perform a security-focused review of the current project.
+Run the `security-review` agent on this project. Scope: `$ARGUMENTS`
 
-If the user provided arguments, pass them as the scope:
-- `$ARGUMENTS`
+Use the Task tool with `subagent_type: "security-review"`:
 
-If no arguments were provided, review recent changes for security issues.
-
-Use the Task tool with `subagent_type: "security-review"` and pass along any scope the user specified.
-
-Example prompts based on arguments:
-- No args: "Run a security review on this project's recent changes."
-- `src/auth/`: "Run a security review scoped to src/auth/"
-- `--full`: "Run a full security audit of the entire codebase."
-- `--audit`: "Run a full security audit of the entire codebase."
+- No args → "Run a security review on this project's recent changes."
+- `<path>` → "Run a security review scoped to `<path>`."
+- `--full` / `--audit` → "Run a full security audit of the entire codebase."

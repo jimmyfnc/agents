@@ -1,52 +1,12 @@
 ---
 name: doc-drift-jimmy
-description: "Detect stale, missing, inconsistent, or obsolete documentation by cross-referencing code changes against all project docs. Use when the user wants to check if docs are up to date, audit documentation, or find forgotten doc updates."
-triggers:
-  - "check my docs"
-  - "are my docs up to date"
-  - "doc drift"
-  - "documentation audit"
-  - "scan documentation"
-  - "check documentation"
-  - "stale docs"
-  - "update docs"
-  - "did I miss any doc updates"
+description: Detect stale, missing, inconsistent, incomplete, or obsolete documentation by auto-discovering all project docs and cross-referencing them against code changes. Use when the user asks whether docs are up to date, wants a documentation audit, or just changed code and might have missed a doc update.
 ---
 
-# Doc Drift Detector Skill
+> Naming: the skill is `doc-drift-jimmy` (short) while the subagent is `doc-drift-detector` (internal).
 
-> **Naming note:** The skill name is `doc-drift-jimmy` (short, user-facing) while the agent subagent_type is `doc-drift-detector` (internal). The `-detector` suffix is dropped from the user-facing name for brevity.
+Spawn the `doc-drift-detector` subagent (Task tool, `subagent_type: "doc-drift-detector"`) and pass along any scope or mode:
 
-This skill triggers the doc-drift-detector agent to find documentation that has fallen out of sync with the codebase.
-
-## When to Use
-
-Activate this skill when the user:
-- Asks if their docs are up to date
-- Wants to audit documentation freshness
-- Just made changes and wants to check if docs need updating
-- Mentions "doc drift", "stale docs", or "documentation audit"
-- Says "did I miss any doc updates" or similar
-
-## How to Execute
-
-Use the Task tool with `subagent_type: "doc-drift-detector"` to launch the agent.
-
-Pass along any scope or mode the user mentioned.
-
-### Examples
-
-**Check against recent changes:**
-```
-Task(doc-drift-detector): "Scan all documentation in this project and check for drift against recent code changes."
-```
-
-**Full audit:**
-```
-Task(doc-drift-detector): "Run a full documentation audit against the entire codebase, not just recent changes."
-```
-
-**Scoped check:**
-```
-Task(doc-drift-detector): "Check documentation drift for changes in src/auth/ only."
-```
+- Recent changes → "Scan all documentation in this project and check for drift against recent code changes."
+- Full → "Run a full documentation audit against the entire codebase, not just recent changes."
+- Scoped → "Check documentation drift for changes in `<path>` only."

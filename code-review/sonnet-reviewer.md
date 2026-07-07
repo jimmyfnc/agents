@@ -146,6 +146,14 @@ Guidelines for suggested tests:
 - Suggested tests: X (or "existing coverage adequate")
 ```
 
+## Machine-Readable Findings (required)
+
+After the human-readable report above, emit a machine-readable findings block as
+defined in [finding-schema.md](./finding-schema.md) — a fenced ```json block
+listing every finding with `"source": "breadth"`. The orchestrator merges,
+dedupes, and verifies from this block, so it MUST agree with your report. Emit
+`[]` if you found nothing.
+
 ## Rules
 
 - Always use the diff command provided by the orchestrator when one is given

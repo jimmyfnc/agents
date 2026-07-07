@@ -126,10 +126,20 @@ For every file in scope, read the **complete file** (not just the diff) and anal
 - Missing input sanitization from untrusted sources
 
 **Dependency Security:**
-- Known vulnerable packages (check version numbers against known CVEs if recognizable)
+- Known vulnerable packages (confirm with a scanner in Step 3.5 — never recall CVE numbers from memory)
 - Outdated dependencies with security patches available
 - Unnecessary dependencies that increase attack surface
 - Dependencies pulled from untrusted sources
+
+### Step 3.5: Run available scanners (prefer tools over recall)
+
+LLM recall of secrets and CVEs is unreliable, so before reasoning from memory, run whatever scanners are installed and fold their output into your findings. Skip silently if a tool is absent:
+
+- **Secrets:** `gitleaks detect --no-banner --redact -v` (or `trufflehog git file://. --only-verified`).
+- **Dependencies (known CVEs):** `osv-scanner --lockfile <lockfile>`, or the ecosystem tool — `npm audit --production`, `pip-audit`, `bundle audit`, `cargo audit`, `govulncheck ./...`.
+- **SAST patterns:** `semgrep --config auto --error` if available.
+
+Treat a verified scanner hit as high-confidence and cite the tool in the finding. Where no scanner is available, fall back to manual analysis and mark secret/dependency findings as lower confidence. Never invent CVE identifiers.
 
 ### Step 4: Classify Each Finding
 
@@ -217,6 +227,14 @@ For every finding, provide:
 - Secrets found: X
 - Overall security posture: [Strong / Moderate / Needs attention / At risk]
 ```
+
+## Machine-Readable Findings (required)
+
+After the human-readable report above, emit a machine-readable findings block as
+defined in the code-review [finding-schema.md](../code-review/finding-schema.md)
+— a fenced ```json block listing every vulnerability with `"source": "security"`
+and `"category": "security"`. When run inside the code-review pipeline the
+orchestrator merges and verifies from this block. Emit `[]` if clean.
 
 ## Rules
 
